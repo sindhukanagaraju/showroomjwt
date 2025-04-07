@@ -50,10 +50,10 @@ public class SaleDetailService {
         return this.saleDetailRepository.save(existingSalesDetails);
     }
 
-    public SaleDetail removeSaleDetailById(final Integer id) {
+    public String removeSaleDetailById(final Integer id) {
         final SaleDetail saleDetail = this.saleDetailRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
-        this.saleDetailRepository.deleteById(id);
-        return saleDetail;
+        this.saleDetailRepository.delete(saleDetail);
+        return Constant.REMOVE;
     }
 
     public List<SaleDetailDTO> retrieveSaleDetail(final String showroomName, final String productName) {

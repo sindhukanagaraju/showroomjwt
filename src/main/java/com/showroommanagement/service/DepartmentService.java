@@ -47,10 +47,10 @@ public class DepartmentService {
         return this.departmentRepository.save(existingDepartment);
     }
 
-    public Department removeDepartmentById(final Integer id) {
-        final Department branch = this.departmentRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
-        this.departmentRepository.deleteById(id);
-        return branch;
+    public String removeDepartmentById(final Integer id) {
+        final Department department = this.departmentRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
+        this.departmentRepository.delete(department);
+        return Constant.REMOVE;
     }
 }
 

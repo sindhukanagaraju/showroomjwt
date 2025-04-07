@@ -18,19 +18,19 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/user/admin")
     public ResponseDTO adminCreate(@RequestBody final SignUpDTO signUpDTO) {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.CREATE, this.userService.adminCreate(signUpDTO));
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/user/employee")
     public ResponseDTO employeeCreate(@RequestBody final SignUpDTO signUpDTO) {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.CREATE, this.userService.employeeCreate(signUpDTO));
     }
 
-    @PreAuthorize("hasAnyAuthority('CUSTOMER')")
+
     @PostMapping("/user/customer")
     public ResponseDTO customerCreate(@RequestBody final SignUpDTO signUpDTO) {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.CREATE, this.userService.customerCreate(signUpDTO));
@@ -41,13 +41,13 @@ public class UserController {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.SIGN_IN, this.userService.signIn(signInDTO));
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/user/{id}")
     public ResponseDTO retrieveUserById(@PathVariable final int id) {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.userService.retrieveUserById(id));
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/user")
     public ResponseDTO retrieveUser() {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.userService.retrieveUser());

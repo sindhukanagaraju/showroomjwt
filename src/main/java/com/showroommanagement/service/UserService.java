@@ -9,8 +9,6 @@ import com.showroommanagement.util.Constant;
 import com.showroommanagement.util.UserCredentialValidation;
 import com.showroommanagement.util.UserType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -124,9 +122,9 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
-    public User deleteById(final int id) {
+    public String deleteById(final int id) {
         final User user = this.userRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
-        this.userRepository.deleteById(id);
-        return user;
+        this.userRepository.delete(user);
+        return Constant.REMOVE;
     }
 }

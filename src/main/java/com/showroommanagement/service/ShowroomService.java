@@ -54,10 +54,10 @@ public class ShowroomService {
         return this.showroomRepository.save(existingShowroom);
     }
 
-    public Showroom removeShowroomById(final Integer id) {
+    public String removeShowroomById(final Integer id) {
         final Showroom showroom = this.showroomRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
-        this.showroomRepository.deleteById(id);
-        return showroom;
+        this.showroomRepository.delete(showroom);
+        return Constant.REMOVE;
     }
 }
 

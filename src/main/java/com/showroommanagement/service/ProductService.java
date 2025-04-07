@@ -57,10 +57,10 @@ public class ProductService {
         return this.productRepository.save(existingProduct);
     }
 
-    public Product removeProductById(final Integer id) {
+    public String removeProductById(final Integer id) {
         final Product product = this.productRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
-        this.productRepository.deleteById(id);
-        return product;
+        this.productRepository.delete(product);
+        return Constant.REMOVE;
     }
 }
 

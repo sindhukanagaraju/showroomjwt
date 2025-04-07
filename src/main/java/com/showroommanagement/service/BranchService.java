@@ -46,9 +46,9 @@ public class BranchService {
         return this.branchRepository.save(existingBranch);
     }
 
-    public Branch removeBranchById(final Integer id) {
+    public String removeBranchById(final Integer id) {
         final Branch branch = this.branchRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
-        this.branchRepository.deleteById(id);
-        return branch;
+        this.branchRepository.delete(branch);
+        return Constant.REMOVE;
     }
 }

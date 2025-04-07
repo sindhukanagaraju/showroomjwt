@@ -51,10 +51,10 @@ public class CustomerService {
         return this.customerRepository.save(existingCustomer);
     }
 
-    public Customer removeCustomerById(final Integer id) {
+    public String removeCustomerById(final Integer id) {
         final Customer customer = this.customerRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
-        this.customerRepository.deleteById(id);
-        return customer;
+        this.customerRepository.delete(customer);
+        return Constant.REMOVE;
     }
 
     public List<CustomerDetailDTO> retrieveCustomerDetail() {

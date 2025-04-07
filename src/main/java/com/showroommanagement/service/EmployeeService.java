@@ -57,10 +57,10 @@ public class EmployeeService {
         return this.employeeRepository.save(existingEmployee);
     }
 
-    public Employee removeEmployeeById(final Integer id) {
+    public String removeEmployeeById(final Integer id) {
         final Employee employee = this.employeeRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
-        this.employeeRepository.deleteById(id);
-        return employee;
+        this.employeeRepository.delete(employee);
+        return Constant.REMOVE;
     }
 
     public List<EmployeeDetailDTO> retrieveEmployeeDetail() {

@@ -41,9 +41,10 @@ public class AdminService {
         return this.adminRepository.save(existingAdmin);
     }
 
-    public Admin removeAdminById(final Integer id) {
+    @Transactional
+    public String removeAdminById(final Integer id) {
         final Admin admin = this.adminRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
-        this.adminRepository.deleteById(id);
-        return admin;
+        this.adminRepository.delete(admin);
+        return Constant.REMOVE;
     }
 }

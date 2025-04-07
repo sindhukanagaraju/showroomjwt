@@ -29,13 +29,13 @@ public class SecurityConfig {
     private final JwtFilter jwtFilter;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/api/v1/user/signIn").permitAll()
-                        .requestMatchers("/api/v1/user/refresh-token","/api/v1/brand/retrieve").permitAll()
-                        .requestMatchers("/api/v1/customer").hasAnyAuthority(UserType.ADMIN.name(), UserType.CUSTOMER.name())
+                        .requestMatchers("/api/v1/user/signIn","/api/v1/user/customer").permitAll()
+                        .requestMatchers("/api/v1/user/refresh-token", "/api/v1/brand/retrieve").permitAll()
+                        .requestMatchers("/api/v1/customer/**").hasAnyAuthority(UserType.ADMIN.name(), UserType.CUSTOMER.name())
                         .anyRequest().authenticated())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
