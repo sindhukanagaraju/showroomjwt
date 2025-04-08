@@ -1,10 +1,7 @@
 package com.showroommanagement.service;
 
 import com.showroommanagement.entity.User;
-import com.showroommanagement.exception.SignatureException;
-import com.showroommanagement.exception.UnAuthorizedException;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -47,7 +44,7 @@ public class JWTService {
                 .add(claims)
                 .subject(user.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 ))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30 ))
                 .and()
                 .signWith(getKey())
                 .compact();
@@ -81,19 +78,11 @@ public class JWTService {
     }
 
     private Claims extractAllClaims(String token) {
-//        try {
-            return Jwts.parser()
-                    .verifyWith(getKey())
-                    .build()
-                    .parseSignedClaims(token)
-                    .getPayload();
-//        } catch (ExpiredJwtException e) {
-//            throw new UnAuthorizedException("JWT Token has expired");
-//        } catch (SignatureException e) {
-//            throw new SignatureException("Invalid JWT signature");
-//        } catch (Exception e) {
-//            throw new UnAuthorizedException("Invalid JWT Token");
-//        }
+        return Jwts.parser()
+                .verifyWith(getKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     public boolean validateToken(String token, UserDetails userDetails) {

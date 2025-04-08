@@ -1,14 +1,16 @@
 package com.showroommanagement.service;
 
+import com.showroommanagement.dto.PaginationDTO;
 import com.showroommanagement.dto.SaleDetailDTO;
 import com.showroommanagement.entity.SaleDetail;
 import com.showroommanagement.exception.BadRequestServiceAlertException;
 import com.showroommanagement.repository.SaleDetailRepository;
 import com.showroommanagement.util.Constant;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -56,12 +58,14 @@ public class SaleDetailService {
         return Constant.REMOVE;
     }
 
-    public List<SaleDetailDTO> retrieveSaleDetail(final String showroomName, final String productName) {
-        List<SaleDetail> retrieveSales = this.saleDetailRepository.findAll();
-        List<SaleDetailDTO> saleDetailDTOS = new ArrayList<>();
-        for (SaleDetail salesDetails : retrieveSales) {
-            SaleDetailDTO saleDetailDTO = new SaleDetailDTO();
-            saleDetailDTO.setShowroomName(salesDetails.getProduct().getEmployee().getDepartment().getShowroom().getName());
+    public PaginationDTO searchProducts(final String keyword, final Pageable pageable) {
+        final Page<SaleDetail> salesPage = this.saleDetailRepository.searchProducts(keyword, pageable);
+        if (salesPage.isEmpty()) {
+            throw new BadRequestServiceAlertException("No sales found for keyword: " + keyword);
+        }
+        final List<SaleDetailDTO> saleDetailResponse = salesPage.map(salesDetails -> {
+            final SaleDetailDTO saleDetailDTO = new SaleDetailDTO();
+            saleDetailDTO.setShowroomName(salesDetails.getProduct().getEmployee().getBranch().getShowroom().getName());
             saleDetailDTO.setBrandName(salesDetails.getProduct().getBrand().getBrand());
             saleDetailDTO.setProductModel(salesDetails.getProduct().getModel());
             saleDetailDTO.setProductPrice(salesDetails.getProduct().getPrice());
@@ -71,8 +75,16 @@ public class SaleDetailService {
             saleDetailDTO.setCustomerName(salesDetails.getCustomer().getName());
             saleDetailDTO.setCustomerAddress(salesDetails.getCustomer().getAddress());
             saleDetailDTO.setBranchName(salesDetails.getProduct().getEmployee().getBranch().getBranch());
-            saleDetailDTOS.add(saleDetailDTO);
-        }
-        return saleDetailDTOS;
+            return saleDetailDTO;
+        }).getContent();
+
+        return new PaginationDTO(
+                salesPage.getTotalPages(),
+                salesPage.getTotalElements(),
+                salesPage.getSize(),
+                saleDetailResponse
+        );
     }
+
 }
+

@@ -8,6 +8,8 @@ import java.util.Date;
 @Getter
 @Setter
 public class SaleDetailDTO {
+
+    private Date salesDate;
     private String showroomName;
     private String brandName;
     private String productModel;
@@ -17,5 +19,6 @@ public class SaleDetailDTO {
     private String branchName;
     private String customerName;
     private String customerAddress;
-    private Date salesDate;
+
+
 }

@@ -25,4 +25,7 @@ public class Constant {
     public static final String INCORRECT_PASSWORD = "Incorrect Password";
     public static final String INCORRECT_EMAIL = "Incorrect email";
     public static final String INVALID_TOKEN = "Invalid refresh token";
+    public static final String TOKEN_EXPIRED = "JWT Token has expired";
+    public static final String INVALID_SIGNATURE = "Invalid JWT  signature";
+
 }

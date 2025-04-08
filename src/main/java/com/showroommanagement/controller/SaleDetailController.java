@@ -4,6 +4,9 @@ import com.showroommanagement.dto.ResponseDTO;
 import com.showroommanagement.entity.SaleDetail;
 import com.showroommanagement.service.SaleDetailService;
 import com.showroommanagement.util.Constant;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +52,9 @@ public class SaleDetailController {
     }
 
     @GetMapping("/sale/details")
-    public ResponseDTO retrieveSaleDetail(@RequestParam final String showroomName, @RequestParam final String productModel) {
-        return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.saleDetailService.retrieveSaleDetail(showroomName, productModel));
+    public ResponseDTO searchSaleDetail(
+            @RequestParam(defaultValue = "") String keyword,
+            @PageableDefault(size = 2, sort = "salesDate", direction = Sort.Direction.ASC) Pageable pageable) {
+        return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.saleDetailService.searchProducts(keyword, pageable));
     }
 }

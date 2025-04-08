@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 
@@ -41,7 +40,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(responseDTO,HttpStatus.FORBIDDEN);
     }
     @ExceptionHandler(SecurityException.class)
-    public ResponseEntity<ResponseDTO> handleExpiredJwtException(final SecurityException exception, WebRequest request) {
+    public ResponseEntity<ResponseDTO> handleSecurityException(final SecurityException exception, WebRequest request) {
         ResponseDTO responseDTO = new ResponseDTO(HttpStatus.FORBIDDEN.value(),exception.getMessage(), request.getDescription(false));
         exception.printStackTrace();
         return new ResponseEntity<>(responseDTO,HttpStatus.FORBIDDEN);
