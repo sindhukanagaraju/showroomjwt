@@ -61,7 +61,7 @@ public class SaleDetailService {
     public PaginationDTO searchProducts(final String keyword, final Pageable pageable) {
         final Page<SaleDetail> salesPage = this.saleDetailRepository.searchProducts(keyword, pageable);
         if (salesPage.isEmpty()) {
-            throw new BadRequestServiceAlertException("No sales found for keyword: " + keyword);
+            throw new BadRequestServiceAlertException(Constant.NOT_FOUND);
         }
         final List<SaleDetailDTO> saleDetailResponse = salesPage.map(salesDetails -> {
             final SaleDetailDTO saleDetailDTO = new SaleDetailDTO();

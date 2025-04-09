@@ -41,7 +41,7 @@ public class ShowroomController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("/showroom/{id}")
-    public ResponseDTO updateShowroom(@PathVariable final Integer id, @RequestBody final Showroom showroom) {
+    public ResponseDTO updateShowroomById(@PathVariable final Integer id, @RequestBody final Showroom showroom) {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.UPDATE, this.showroomService.updateShowroomById(showroom, id));
     }
 
