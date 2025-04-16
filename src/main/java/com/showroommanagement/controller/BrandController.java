@@ -28,7 +28,7 @@ public class BrandController {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.brandService.retrieveBrandById(id));
     }
 
-    @GetMapping("/brand/retrieve")
+    @GetMapping("/brand")
     public ResponseDTO retrieveBrand() {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.brandService.retrieveBrand());
     }

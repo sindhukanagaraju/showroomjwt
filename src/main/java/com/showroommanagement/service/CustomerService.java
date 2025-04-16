@@ -25,7 +25,7 @@ public class CustomerService {
         return this.customerRepository.save(customer);
     }
 
-    public Customer retrieveDepartmentById(final Integer id) {
+    public Customer retrieveCustomerById(final Integer id) {
         return this.customerRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
     }
 
@@ -70,13 +70,10 @@ public class CustomerService {
         return customerDetailDTOS;
     }
 
-    public long retrieveCustomerCount() {
-        return this.customerRepository.count();
-    }
-
     public List<String> retrieveCustomerName() {
         return customerRepository.findAllCustomerName();
     }
+
 }
 
 

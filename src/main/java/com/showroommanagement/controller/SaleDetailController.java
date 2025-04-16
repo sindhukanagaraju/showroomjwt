@@ -34,7 +34,7 @@ public class SaleDetailController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE','CUSTOMER')")
-    @GetMapping("/sale/retrieve")
+    @GetMapping("/sale")
     public ResponseDTO retrieveSales() {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.saleDetailService.retrieveSales());
     }

@@ -49,7 +49,7 @@ public class ShowroomControllerTest {
         showroom = new Showroom();
         showroom.setId(1);
         showroom.setName("Poorvika");
-        showroom.setAddress("chennai");
+        showroom.setAddress("1/2 Sipcot Information Technology Park, Near Siruseri Special Economic Zone Navallur Post, Sirucheri, chennai.");
         showroom.setContactNumber("9056734576");
     }
 
@@ -81,7 +81,7 @@ public class ShowroomControllerTest {
     @Test
     public void testRetrieveAll() throws Exception {
         when(showroomService.retrieveShowroom()).thenReturn(List.of(showroom));
-        mockMvc.perform(get("/api/v1/showroom/retrieve"))
+        mockMvc.perform(get("/api/v1/showroom"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.statusCode").value(HttpStatus.OK.value()))
                 .andExpect(jsonPath("$.message").value(Constant.RETRIEVE))

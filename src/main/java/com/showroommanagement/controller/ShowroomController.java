@@ -28,7 +28,7 @@ public class ShowroomController {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.showroomService.retrieveShowroomById(id));
     }
 
-    @GetMapping("/showroom/retrieve")
+    @GetMapping("/showroom")
     public ResponseDTO retrieveShowroom() {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.showroomService.retrieveShowroom());
     }

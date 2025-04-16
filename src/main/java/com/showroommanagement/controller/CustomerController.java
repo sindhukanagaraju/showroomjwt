@@ -23,10 +23,10 @@ public class CustomerController {
 
     @GetMapping("/customer/{id}")
     public ResponseDTO retrieveCustomerById(@PathVariable final Integer id) {
-        return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.customerService.retrieveDepartmentById(id));
+        return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.customerService.retrieveCustomerById(id));
     }
 
-    @GetMapping("/customer/retrieve")
+    @GetMapping("/customer")
     public ResponseDTO retrieveCustomer() {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.customerService.retrieveCustomer());
     }
@@ -44,11 +44,6 @@ public class CustomerController {
     @GetMapping("/customer/details")
     public ResponseDTO retrieveCustomerDetail() {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.customerService.retrieveCustomerDetail());
-    }
-
-    @GetMapping("/customer/count")
-    public ResponseDTO retrieveCustomerCount() {
-        return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.customerService.retrieveCustomerCount());
     }
 
     @GetMapping("/customer/name")

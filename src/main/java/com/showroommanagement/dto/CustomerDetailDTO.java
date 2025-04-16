@@ -8,4 +8,6 @@ public class CustomerDetailDTO {
     private String Name;
     private String customerAddress;
     private String showroomName;
+
+
 }

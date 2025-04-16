@@ -28,7 +28,7 @@ public class DepartmentController {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.departmentService.retrieveDepartmentById(id));
     }
 
-    @GetMapping("/department/retrieve")
+    @GetMapping("/department")
     public ResponseDTO retrieveDepartment() {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.departmentService.retrieveDepartment());
     }

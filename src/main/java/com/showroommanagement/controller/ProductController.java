@@ -28,7 +28,7 @@ public class ProductController {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.productService.retrieveProductById(id));
     }
 
-    @GetMapping("/product/retrieve")
+    @GetMapping("/product")
     public ResponseDTO retrieveProduct() {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.productService.retrieveProduct());
     }

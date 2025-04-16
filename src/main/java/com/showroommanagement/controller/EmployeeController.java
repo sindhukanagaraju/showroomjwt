@@ -31,7 +31,7 @@ public class EmployeeController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
-    @GetMapping("/employee/retrieve")
+    @GetMapping("/employee")
     public ResponseDTO retrieveEmployee() {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.employeeService.retrieveEmployee());
     }
