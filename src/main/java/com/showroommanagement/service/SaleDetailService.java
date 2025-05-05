@@ -35,11 +35,8 @@ public class SaleDetailService {
     }
 
     @Transactional
-    public SaleDetail updateSalesById(final SaleDetail salesDetails, final Integer id) {
+    public SaleDetail updateSaleById(final SaleDetail salesDetails, final Integer id) {
         final SaleDetail existingSalesDetails = this.saleDetailRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
-        if (salesDetails.getId() != null) {
-            existingSalesDetails.setId(salesDetails.getId());
-        }
         if (salesDetails.getSalesDate() != null) {
             existingSalesDetails.setSalesDate(salesDetails.getSalesDate());
         }
@@ -52,7 +49,7 @@ public class SaleDetailService {
         return this.saleDetailRepository.save(existingSalesDetails);
     }
 
-    public String removeSaleDetailById(final Integer id) {
+    public String removeSaleById(final Integer id) {
         final SaleDetail saleDetail = this.saleDetailRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
         this.saleDetailRepository.delete(saleDetail);
         return Constant.REMOVE;
@@ -85,6 +82,5 @@ public class SaleDetailService {
                 saleDetailResponse
         );
     }
-
 }
 

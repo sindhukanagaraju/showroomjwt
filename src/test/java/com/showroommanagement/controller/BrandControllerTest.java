@@ -92,7 +92,6 @@ public class BrandControllerTest {
     public void testUpdateById() throws Exception {
         when(brandService.updateBrandById(any(Brand.class), anyInt()))
                 .thenReturn(brand);
-
         mockMvc.perform(put("/api/v1/brand/1")
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(brand)))
@@ -101,10 +100,8 @@ public class BrandControllerTest {
                 .andExpect(jsonPath("$.message").value(Constant.UPDATE))
                 .andExpect(jsonPath("$.data.id").value(1))
                 .andExpect(jsonPath("$.data.brand").value("vivo"));
-
         verify(brandService, times(1)).updateBrandById(any(Brand.class), eq(1));
     }
-
 
     @Test
     public void testDeleteById() throws Exception {
@@ -123,5 +120,4 @@ public class BrandControllerTest {
     public static void toEndBrandController() {
         System.out.println("Brand Controller Test case execution has been finished");
     }
-
 }

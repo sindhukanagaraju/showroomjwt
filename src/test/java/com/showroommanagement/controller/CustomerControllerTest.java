@@ -48,7 +48,7 @@ public class CustomerControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
         Showroom showroom = new Showroom();
         showroom.setId(1);
-        showroom.setName("poorvika");
+        showroom.setName("Poorvika");
 
         Department department = new Department();
         department.setId(3);
@@ -63,7 +63,7 @@ public class CustomerControllerTest {
         Employee employee = new Employee();
         employee.setId(1);
         employee.setName("karthika");
-        employee.setSalary(88000.0);
+        employee.setSalary(40000.0);
         employee.setAddress("1st street,seruchery,chennai");
         employee.setDepartment(department);
         employee.setBranch(branch);
@@ -78,7 +78,6 @@ public class CustomerControllerTest {
     @Test
     public void testCreateCustomer() throws Exception {
         when(customerService.createCustomer(any(Customer.class))).thenReturn(customer);
-
         mockMvc.perform(post("/api/v1/customer")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(customer)))
@@ -86,8 +85,12 @@ public class CustomerControllerTest {
                 .andExpect(jsonPath("$.statusCode").value(HttpStatus.OK.value()))
                 .andExpect(jsonPath("$.message").value(Constant.CREATE))
                 .andExpect(jsonPath("$.data.id").value(1))
-                .andExpect(jsonPath("$.data.name").value("viha"));
-
+                .andExpect(jsonPath("$.data.name").value("viha"))
+                .andExpect(jsonPath("$.data.address").value("1, viha, 25, Sakthi Street,Devi Nagar, Chennai - 600 092."))
+                .andExpect(jsonPath("$.data.employee.name").value("karthika"))
+                .andExpect(jsonPath("$.data.employee.department.name").value("sales"))
+                .andExpect(jsonPath("$.data.employee.branch.branch").value("chennai"))
+                .andExpect(jsonPath("$.data.employee.branch.showroom.name").value("Poorvika"));
         verify(customerService, times(1)).createCustomer(any(Customer.class));
     }
 
@@ -99,8 +102,12 @@ public class CustomerControllerTest {
                 .andExpect(jsonPath("$.statusCode").value(HttpStatus.OK.value()))
                 .andExpect(jsonPath("$.message").value(Constant.RETRIEVE))
                 .andExpect(jsonPath("$.data.id").value(1))
-                .andExpect(jsonPath("$.data.name").value("viha"));
-
+                .andExpect(jsonPath("$.data.name").value("viha"))
+                .andExpect(jsonPath("$.data.address").value("1, viha, 25, Sakthi Street,Devi Nagar, Chennai - 600 092."))
+                .andExpect(jsonPath("$.data.employee.name").value("karthika"))
+                .andExpect(jsonPath("$.data.employee.department.name").value("sales"))
+                .andExpect(jsonPath("$.data.employee.branch.branch").value("chennai"))
+                .andExpect(jsonPath("$.data.employee.branch.showroom.name").value("Poorvika"));
         verify(customerService, times(1)).retrieveCustomerById(customer.getId());
     }
 
@@ -112,8 +119,12 @@ public class CustomerControllerTest {
                 .andExpect(jsonPath("$.statusCode").value(HttpStatus.OK.value()))
                 .andExpect(jsonPath("$.message").value(Constant.RETRIEVE))
                 .andExpect(jsonPath("$.data[0].id").value(1))
-                .andExpect(jsonPath("$.data[0].name").value("viha"));
-
+                .andExpect(jsonPath("$.data[0].name").value("viha"))
+                .andExpect(jsonPath("$.data[0].address").value("1, viha, 25, Sakthi Street,Devi Nagar, Chennai - 600 092."))
+                .andExpect(jsonPath("$.data[0].employee.name").value("karthika"))
+                .andExpect(jsonPath("$.data[0].employee.department.name").value("sales"))
+                .andExpect(jsonPath("$.data[0].employee.branch.branch").value("chennai"))
+                .andExpect(jsonPath("$.data[0].employee.branch.showroom.name").value("Poorvika"));
         verify(customerService, times(1)).retrieveCustomer();
     }
 
@@ -145,33 +156,13 @@ public class CustomerControllerTest {
     }
 
     @Test
-    public void testRetrieveAllCustomerDetail() throws Exception {
-        CustomerDetailDTO customerDetailDTO = new CustomerDetailDTO();
-        customerDetailDTO.setName("viha");
-        customerDetailDTO.setCustomerAddress("1, viha, 25, Sakthi Street,Devi Nagar, Chennai - 600 092.");
-        customerDetailDTO.setShowroomName("Poorvika");
-        when(customerService.retrieveCustomerDetail()).thenReturn(List.of(customerDetailDTO));
-        mockMvc.perform(get("/api/v1/customer/details")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(customer)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.statusCode").value(HttpStatus.OK.value()))
-                .andExpect(jsonPath("$.message").value(Constant.RETRIEVE))
-                .andExpect(jsonPath("$.data[0].name").value("viha"))
-                .andExpect(jsonPath("$.data[0].customerAddress").value("1, viha, 25, Sakthi Street,Devi Nagar, Chennai - 600 092."))
-                .andExpect(jsonPath("$.data[0].showroomName").value("Poorvika"));
-    }
-
-    @Test
     void testRetrieveCustomerDetail() throws Exception {
         CustomerDetailDTO customerDetailDTO = new CustomerDetailDTO();
         customerDetailDTO.setName("viha");
         customerDetailDTO.setCustomerAddress("1, viha, 25, Sakthi Street,Devi Nagar, Chennai - 600 092.");
         customerDetailDTO.setShowroomName("Poorvika");
-
         when(customerService.retrieveCustomerDetail()).thenReturn(List.of(customerDetailDTO));
-
-        mockMvc.perform(get("/api/v1/customer/details")
+        mockMvc.perform(get("/api/v1/customer/detail")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.statusCode").value(HttpStatus.OK.value()))
@@ -193,7 +184,6 @@ public class CustomerControllerTest {
                 .andExpect(jsonPath("$.data[1]").value("pavi"))
                 .andExpect(jsonPath("$.data[2]").value("sadhana"));
     }
-
 
     @AfterAll
     public static void endCustomerControllerTest() {

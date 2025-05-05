@@ -101,22 +101,18 @@ public class BranchControllerTest {
                 .andExpect(jsonPath("$.message").value(Constant.UPDATE))
                 .andExpect(jsonPath("$.data.id").value(1))
                 .andExpect(jsonPath("$.data.branch").value("chennai"));
-
         verify(branchService, times(1)).updateBranchById(any(Branch.class), eq(1));
     }
-
 
     @Test
     public void testDeleteById() throws Exception {
         when(branchService.removeBranchById(1)).thenReturn(String.valueOf(true));
-
         mockMvc.perform(delete("/api/v1/branch/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.statusCode").value(HttpStatus.OK.value()))
                 .andExpect(jsonPath("$.message").value(Constant.REMOVE))
                 .andExpect(jsonPath("$.data").value("true"));
-
         verify(branchService, times(1)).removeBranchById(1);
     }
 
@@ -124,5 +120,4 @@ public class BranchControllerTest {
     public static void toEndBranchController() {
         System.out.println("Branch Controller Test case execution has been finished");
     }
-
 }

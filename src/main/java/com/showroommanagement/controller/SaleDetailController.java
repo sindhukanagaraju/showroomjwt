@@ -41,18 +41,18 @@ public class SaleDetailController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("/sale/{id}")
-    public ResponseDTO updateSalesById(@PathVariable final Integer id, @RequestBody final SaleDetail saleDetail) {
-        return new ResponseDTO(HttpStatus.OK.value(), Constant.UPDATE, this.saleDetailService.updateSalesById(saleDetail, id));
+    public ResponseDTO updateSaleById(@PathVariable final Integer id, @RequestBody final SaleDetail saleDetail) {
+        return new ResponseDTO(HttpStatus.OK.value(), Constant.UPDATE, this.saleDetailService.updateSaleById(saleDetail, id));
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @DeleteMapping("/sale/{id}")
-    public ResponseDTO removeSalesById(@PathVariable final Integer id) {
-        return new ResponseDTO(HttpStatus.OK.value(), Constant.REMOVE, this.saleDetailService.removeSaleDetailById(id));
+    public ResponseDTO removeSaleById(@PathVariable final Integer id) {
+        return new ResponseDTO(HttpStatus.OK.value(), Constant.REMOVE, this.saleDetailService.removeSaleById(id));
     }
 
     @GetMapping("/sale/details")
-    public ResponseDTO searchSaleDetail(
+    public ResponseDTO searchProducts(
             @RequestParam(defaultValue = "") String keyword,
             @PageableDefault(size = 2, sort = "salesDate", direction = Sort.Direction.ASC) Pageable pageable) {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.saleDetailService.searchProducts(keyword, pageable));

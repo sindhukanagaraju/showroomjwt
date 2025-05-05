@@ -91,32 +91,9 @@ public class ShowroomControllerTest {
     }
 
     @Test
-    public void testPatchById() throws Exception {
-        Showroom showroom = new Showroom();
-        showroom.setId(1);
-        showroom.setName("Poorvika");
-
-        when(showroomService.patchById(any(Showroom.class), eq(1)))
-                .thenReturn(showroom);
-
-        mockMvc.perform(patch("/api/v1/showroom/1")
-                        .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(showroom)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.statusCode").value(HttpStatus.OK.value()))
-                .andExpect(jsonPath("$.message").value(Constant.UPDATE))
-                .andExpect(jsonPath("$.data.id").value(1))
-                .andExpect(jsonPath("$.data.name").value("Poorvika"));
-
-        verify(showroomService, times(1)).patchById(any(Showroom.class), eq(1));
-    }
-
-
-    @Test
     public void testUpdateById() throws Exception {
         when(showroomService.updateShowroomById(any(Showroom.class), anyInt()))
                 .thenReturn(showroom);
-
         mockMvc.perform(put("/api/v1/showroom/1")
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(showroom)))
@@ -125,27 +102,25 @@ public class ShowroomControllerTest {
                 .andExpect(jsonPath("$.message").value(Constant.UPDATE))
                 .andExpect(jsonPath("$.data.id").value(1))
                 .andExpect(jsonPath("$.data.name").value("Poorvika"));
-
         verify(showroomService, times(1)).updateShowroomById(any(Showroom.class), eq(1));
     }
 
 
-@Test
-public void testDeleteById() throws Exception {
-    when(showroomService.removeShowroomById(2)).thenReturn(String.valueOf(true));
-    mockMvc.perform(delete("/api/v1/showroom/2")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsString(showroom)))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.statusCode").value(HttpStatus.OK.value()))
-            .andExpect(jsonPath("$.message").value(Constant.REMOVE))
-            .andExpect(jsonPath("$.data").value("true"));
-    verify(showroomService, times(1)).removeShowroomById(2);
-}
+    @Test
+    public void testDeleteById() throws Exception {
+        when(showroomService.removeShowroomById(2)).thenReturn(String.valueOf(true));
+        mockMvc.perform(delete("/api/v1/showroom/2")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(showroom)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.statusCode").value(HttpStatus.OK.value()))
+                .andExpect(jsonPath("$.message").value(Constant.REMOVE))
+                .andExpect(jsonPath("$.data").value("true"));
+        verify(showroomService, times(1)).removeShowroomById(2);
+    }
 
-@AfterAll
-public static void toEndShowroomController() {
-    System.out.println("Showroom Controller Test case execution has been finished");
-}
-
+    @AfterAll
+    public static void toEndShowroomController() {
+        System.out.println("Showroom Controller Test case execution has been finished");
+    }
 }

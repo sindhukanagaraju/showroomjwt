@@ -36,9 +36,7 @@ public class EmployeeService {
     @Transactional
     public Employee updateEmployeeById(final Employee employee, final Integer id) {
         final Employee existingEmployee = this.employeeRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
-        if (employee.getId() != null) {
-            existingEmployee.setId(employee.getId());
-        }
+
         if (employee.getName() != null) {
             existingEmployee.setName(employee.getName());
         }
@@ -78,7 +76,7 @@ public class EmployeeService {
         return employeeDetailDTOS;
     }
 
-    public List<String> countOfName() {
-        return this.employeeRepository.countOfName();
+    public List<String> retrieveCountOfEmployee() {
+        return this.employeeRepository.retrieveCountOfEmployee();
     }
 }

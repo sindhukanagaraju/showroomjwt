@@ -122,7 +122,7 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
-    public String deleteById(final int id) {
+    public String removeById(final int id) {
         final User user = this.userRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
         this.userRepository.delete(user);
         return Constant.REMOVE;

@@ -55,8 +55,8 @@ public class UserController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE','CUSTOMER')")
     @DeleteMapping("/user/{id}")
-    public ResponseDTO deleteByAdminId(@PathVariable final int id) {
-        return new ResponseDTO(HttpStatus.OK.value(), Constant.DELETE, this.userService.deleteById(id));
+    public ResponseDTO removeById(@PathVariable final int id) {
+        return new ResponseDTO(HttpStatus.OK.value(), Constant.DELETE, this.userService.removeById(id));
     }
 
     @PostMapping("user/refresh-token")

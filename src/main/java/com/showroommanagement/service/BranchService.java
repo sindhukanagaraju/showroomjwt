@@ -34,9 +34,6 @@ public class BranchService {
     @Transactional
     public Branch updateBranchById(final Branch branch, final Integer id) {
         final Branch existingBranch = this.branchRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
-        if (branch.getId() != null) {
-            existingBranch.setId(branch.getId());
-        }
         if (branch.getBranch() != null) {
             existingBranch.setBranch(branch.getBranch());
         }

@@ -33,9 +33,6 @@ public class BrandService {
     @Transactional
     public Brand updateBrandById(final Brand brand, final Integer id) {
         final Brand existingBrand = this.brandRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
-        if (brand.getId() != null) {
-            existingBrand.setId(brand.getId());
-        }
         if (brand.getBrand() != null) {
             existingBrand.setBrand(brand.getBrand());
         }

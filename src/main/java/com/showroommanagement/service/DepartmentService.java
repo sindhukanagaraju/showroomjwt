@@ -37,10 +37,6 @@ public class DepartmentService {
         if (department.getName() != null) {
             existingDepartment.setName(department.getName());
         }
-        if (department.getId() != null) {
-            existingDepartment.setId(department.getId());
-        }
-
         if (department.getShowroom() != null) {
             existingDepartment.setShowroom(department.getShowroom());
         }

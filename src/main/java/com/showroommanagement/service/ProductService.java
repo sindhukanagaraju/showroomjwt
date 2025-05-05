@@ -33,9 +33,6 @@ public class ProductService {
     @Transactional
     public Product updateProductById(final Product product, final Integer id) {
         final Product existingProduct = this.productRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
-        if (product.getId() != null) {
-            existingProduct.setId(product.getId());
-        }
         if (product.getModel() != null) {
             existingProduct.setModel(product.getModel());
         }

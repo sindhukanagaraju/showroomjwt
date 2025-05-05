@@ -36,9 +36,6 @@ public class CustomerService {
     @Transactional
     public Customer updateCustomerById(final Customer customer, final Integer id) {
         final Customer existingCustomer = this.customerRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
-        if (customer.getId() != null) {
-            existingCustomer.setId(customer.getId());
-        }
         if (customer.getName() != null) {
             existingCustomer.setName(customer.getName());
         }
@@ -73,7 +70,6 @@ public class CustomerService {
     public List<String> retrieveCustomerName() {
         return customerRepository.findAllCustomerName();
     }
-
 }
 
 

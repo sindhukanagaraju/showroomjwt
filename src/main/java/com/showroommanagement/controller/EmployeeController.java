@@ -55,8 +55,8 @@ public class EmployeeController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
-    @GetMapping("/employee/name")
-    public ResponseDTO countOfName() {
-        return new ResponseDTO(HttpStatus.OK.value(),Constant.RETRIEVE,this.employeeService.countOfName());
+    @GetMapping("/employee/count")
+    public ResponseDTO retrieveCountOfEmployee() {
+        return new ResponseDTO(HttpStatus.OK.value(),Constant.RETRIEVE,this.employeeService.retrieveCountOfEmployee());
     }
 }
