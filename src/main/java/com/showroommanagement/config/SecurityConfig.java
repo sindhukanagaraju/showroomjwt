@@ -2,6 +2,7 @@ package com.showroommanagement.config;
 
 import com.showroommanagement.util.UserType;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,6 +34,7 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .requestMatchers("/api/v1/user/signIn", "/api/v1/user/customer").permitAll()
                         .requestMatchers("/api/v1/user/refresh-token", "/api/v1/brand/retrieve").permitAll()
                         .requestMatchers("/api/v1/customer/**").hasAnyAuthority(UserType.ADMIN.name(), UserType.CUSTOMER.name())

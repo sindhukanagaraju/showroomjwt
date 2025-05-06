@@ -91,6 +91,21 @@ public class ShowroomControllerTest {
     }
 
     @Test
+    public void testPatchById() throws Exception {
+        when(showroomService.patchById(any(Showroom.class), anyInt()))
+                .thenReturn(showroom);
+        mockMvc.perform(patch("/api/v1/showroom/1")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(showroom)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.statusCode").value(HttpStatus.OK.value()))
+                .andExpect(jsonPath("$.message").value(Constant.UPDATE))
+                .andExpect(jsonPath("$.data.id").value(1))
+                .andExpect(jsonPath("$.data.name").value("Poorvika"));
+        verify(showroomService, times(1)).patchById(any(Showroom.class), eq(1));
+    }
+
+    @Test
     public void testUpdateById() throws Exception {
         when(showroomService.updateShowroomById(any(Showroom.class), anyInt()))
                 .thenReturn(showroom);
@@ -101,7 +116,8 @@ public class ShowroomControllerTest {
                 .andExpect(jsonPath("$.statusCode").value(HttpStatus.OK.value()))
                 .andExpect(jsonPath("$.message").value(Constant.UPDATE))
                 .andExpect(jsonPath("$.data.id").value(1))
-                .andExpect(jsonPath("$.data.name").value("Poorvika"));
+                .andExpect(jsonPath("$.data.name").value("Poorvika"))
+                .andExpect(jsonPath("$.data.address").value("1/2 Sipcot Information Technology Park, Near Siruseri Special Economic Zone Navallur Post, Sirucheri, chennai."));
         verify(showroomService, times(1)).updateShowroomById(any(Showroom.class), eq(1));
     }
 

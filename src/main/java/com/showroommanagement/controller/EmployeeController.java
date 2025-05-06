@@ -49,14 +49,8 @@ public class EmployeeController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
-    @GetMapping("/employee/detail")
+    @GetMapping("/employees")
     public ResponseDTO retrieveEmployeeDetail() {
         return new ResponseDTO(HttpStatus.OK.value(),Constant.RETRIEVE, this.employeeService.retrieveEmployeeDetail());
-    }
-
-    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
-    @GetMapping("/employee/count")
-    public ResponseDTO retrieveCountOfEmployee() {
-        return new ResponseDTO(HttpStatus.OK.value(),Constant.RETRIEVE,this.employeeService.retrieveCountOfEmployee());
     }
 }

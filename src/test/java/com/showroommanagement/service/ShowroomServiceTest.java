@@ -94,12 +94,43 @@ public class ShowroomServiceTest {
         assertEquals(showroom.getId(), showrooms.get(0).getId());
         verify(showroomRepository, times(1)).findAll();
     }
+    @Test
+    void testPatchShowroomById() {
+        Showroom updatedShowroom = new Showroom();
+        updatedShowroom.setId(1);
+        updatedShowroom.setName("Poorvika Updated");
+
+        when(showroomRepository.findById(1)).thenReturn(Optional.of(showroom));
+        when(showroomRepository.save(any(Showroom.class))).thenReturn(updatedShowroom);
+
+        Showroom result = showroomService.patchById(updatedShowroom, 1);
+
+        assertNotNull(result);
+        assertEquals("Poorvika Updated", result.getName());
+        verify(showroomRepository, times(1)).findById(1);
+        verify(showroomRepository, times(1)).save(any(Showroom.class));
+    }
+
+    @Test
+    void testPatchShowroomByIdNotFound() {
+        Showroom updatedShowroom = new Showroom();
+        updatedShowroom.setId(1);
+        updatedShowroom.setName("Poorvika Updated");
+
+        when(showroomRepository.findById(1)).thenReturn(Optional.empty());
+
+        Exception exception = assertThrows(BadRequestServiceAlertException.class, () -> showroomService.patchById(updatedShowroom, 1));
+
+        assertEquals(Constant.ID_DOES_NOT_EXIST, exception.getMessage());
+        verify(showroomRepository, times(1)).findById(1);
+    }
 
     @Test
     void testUpdateShowroomById() {
         Showroom updatedShowroom = new Showroom();
         updatedShowroom.setId(1);
         updatedShowroom.setName("Poorvika Updated");
+        updatedShowroom.setAddress(("updated chennai"));
 
         when(showroomRepository.findById(1)).thenReturn(Optional.of(showroom));
         when(showroomRepository.save(any(Showroom.class))).thenReturn(updatedShowroom);
@@ -108,6 +139,7 @@ public class ShowroomServiceTest {
 
         assertNotNull(result);
         assertEquals("Poorvika Updated", result.getName());
+        assertEquals("updated chennai" , result.getAddress());
         verify(showroomRepository, times(1)).findById(1);
         verify(showroomRepository, times(1)).save(any(Showroom.class));
     }
@@ -117,6 +149,7 @@ public class ShowroomServiceTest {
         Showroom updatedShowroom = new Showroom();
         updatedShowroom.setId(1);
         updatedShowroom.setName("Poorvika Updated");
+        updatedShowroom.setAddress(("updated chennai"));
 
         when(showroomRepository.findById(1)).thenReturn(Optional.empty());
 

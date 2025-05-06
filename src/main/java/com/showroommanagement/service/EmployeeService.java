@@ -75,8 +75,4 @@ public class EmployeeService {
         }
         return employeeDetailDTOS;
     }
-
-    public List<String> retrieveCountOfEmployee() {
-        return this.employeeRepository.retrieveCountOfEmployee();
-    }
 }

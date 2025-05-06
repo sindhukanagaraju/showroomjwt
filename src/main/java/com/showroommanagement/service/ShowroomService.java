@@ -31,11 +31,22 @@ public class ShowroomService {
         return this.showroomRepository.findAll();
     }
 
+    public Showroom patchById(final Showroom showroom, final Integer id) {
+        final Showroom existingShowroom = this.showroomRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
+        if (showroom.getName() != null) {
+            existingShowroom.setName(showroom.getName());
+        }
+        return this.showroomRepository.save(existingShowroom);
+    }
+
     @Transactional
     public Showroom updateShowroomById(final Showroom showroom, final Integer id) {
         final Showroom existingShowroom = this.showroomRepository.findById(id).orElseThrow(() -> new BadRequestServiceAlertException(Constant.ID_DOES_NOT_EXIST));
         if (showroom.getId() != null) {
             existingShowroom.setId(showroom.getId());
+        }
+        if (showroom.getName() != null) {
+            existingShowroom.setName(showroom.getName());
         }
         if (showroom.getAddress() != null) {
             existingShowroom.setAddress(showroom.getAddress());

@@ -34,6 +34,12 @@ public class ShowroomController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PatchMapping("/showroom/{id}")
+    public ResponseDTO patchById(@PathVariable Integer id, @RequestBody Showroom showroom) {
+        return new ResponseDTO(HttpStatus.OK.value(), Constant.UPDATE, this.showroomService.patchById(showroom, id));
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("/showroom/{id}")
     public ResponseDTO updateShowroomById(@PathVariable final Integer id, @RequestBody final Showroom showroom) {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.UPDATE, this.showroomService.updateShowroomById(showroom, id));

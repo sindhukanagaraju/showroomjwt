@@ -41,7 +41,7 @@ public class CustomerController {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.REMOVE, this.customerService.removeCustomerById(id));
     }
 
-    @GetMapping("/customer/detail")
+    @GetMapping("/customers")
     public ResponseDTO retrieveCustomerDetail() {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.RETRIEVE, this.customerService.retrieveCustomerDetail());
     }

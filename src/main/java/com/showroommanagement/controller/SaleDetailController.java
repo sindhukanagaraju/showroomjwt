@@ -51,7 +51,7 @@ public class SaleDetailController {
         return new ResponseDTO(HttpStatus.OK.value(), Constant.REMOVE, this.saleDetailService.removeSaleById(id));
     }
 
-    @GetMapping("/sale/details")
+    @GetMapping("/sales")
     public ResponseDTO searchProducts(
             @RequestParam(defaultValue = "") String keyword,
             @PageableDefault(size = 2, sort = "salesDate", direction = Sort.Direction.ASC) Pageable pageable) {

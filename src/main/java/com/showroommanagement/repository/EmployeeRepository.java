@@ -9,6 +9,4 @@ import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
-    @Query(value = "SELECT name, COUNT(id) as count from employee GROUP BY name ", nativeQuery = true)
-    List<String> retrieveCountOfEmployee();
 }
